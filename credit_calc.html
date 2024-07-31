@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function calculateLoan() {
+            var loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            var interestRate = parseFloat(document.getElementById('interestRate').value);
+            var loanTerm = parseFloat(document.getElementById('loanTerm').value);
+
+            var monthlyPayment = 0;
+            var totalPayment = 0;
+            var totalInterest = 0;
+
+            if (!isNaN(loanAmount) && !isNaN(interestRate) && !isNaN(loanTerm) && loanAmount > 0 && interestRate > 0 && loanTerm > 0) {
+                var monthlyInterestRate = (interestRate / 100) / 12;
+                var numberOfPayments = loanTerm * 12;
+                var compoundedInterestRate = Math.pow((1 + monthlyInterestRate), numberOfPayments);
+                var interestQuotient = (monthlyInterestRate * compoundedInterestRate) / (compoundedInterestRate - 1);
+                monthlyPayment = loanAmount * interestQuotient;
+                totalPayment = monthlyPayment * numberOfPayments;
+                totalInterest = totalPayment - loanAmount;
+            }
+
+            document.getElementById('monthlyPayment').innerText = monthlyPayment.toFixed(0) + ' ₽';
+            document.getElementById('totalPayment').innerText = totalInterest.toFixed(0) + ' ₽';
+            document.getElementById('totalInterest').innerText = totalPayment.toFixed(0) + ' ₽';
+            document.getElementById('loanAmountResult').innerText = loanAmount > 0 ? loanAmount.toFixed(0) + ' ₽' : '0 ₽';
+        }
+
+        window.onload = function() {
+            document.getElementById('loanAmount').addEventListener('input', calculateLoan);
+            document.getElementById('interestRate').addEventListener('input', calculateLoan);
+            document.getElementById('loanTerm').addEventListener('input', calculateLoan);
+            calculateLoan(); // Вызов функции для инициализации начальных значений
+        }
+    </script>
+    </head>
+    <header class="header">
+        <div class="container">
+            <nav class="menu">
+                <ul class="menu__items">
+                    <div class="logo">
+                        <a href=""><img class="img-first" src="assets/images/GIB.svg" alt=""></a>
+                        <a href=""><img class="img-second" src="assets/images/GlobalInvestBank.svg" alt=""></a>   
+                    </div>
+                    <div class="nav__items">
+                        <li class="menu__item">
+                            <a href="avto_calc.html" class="menu__item-link">Автокредит</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="ipot_calc.html" class="menu__item-link">Ипотека</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="credit_calc.html" class="menu__item-link">Кредит</a>
+                        </li>
+                    </div>
+                    <div class="social__item">
+                        <a class="social__first-item" href=""><img src="assets/images/tg.svg" alt=""></a>
+                        <a href=""><img src="assets/images/vk.svg" alt=""></a>                       
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="content">
+            <div class="container">
+                <a class="content__link" href="all_credits.html"><- Все кредиты</a>
+                <h1 class="title__content">Кредитный калькулятор</h1>
+                <p class="text__content">Кредитный калькулятор позволяет онлайн рассчитать и сравнить размер ежемесячного платежа, сумму переплаты и процентной ставке по интересующему вас кредиту</p>
+                <div class="calculator">
+                    <div class="calc__inner">
+                        <div class="calc__input">
+                            <p class="text__calc">По стоимости автомобиля</p>
+                            <div class="calc__input-items">
+                                <form action="">
+                                <div class="input">
+                                    <label for="loanAmount">Сумма кредита (руб.):</label>
+                                    <input type="text" id="loanAmount" placeholder="Введите сумму" oninput="calculateLoan()">
+                                </div>
+                                <div class="input">
+                                    <label for="interestRate">Процентная ставка (%):</label>
+                                    <input type="text" id="interestRate" placeholder="Введите ставку" oninput="calculateLoan()">
+                                </div>
+                                <div class="input">
+                                    <label for="loanTerm">Срок кредита (в годах):</label>
+                                    <input type="text" id="loanTerm" placeholder="Введите срок" oninput="calculateLoan()">
+                                </div>
+                            </form>
+                            
+                            </div>
+                        </div>
+                        <!-- <div id="result"></div> -->
+                        <div class="calc__result">
+                            <div class="calc__result-inner">
+                                <h2 class="title__result">Результаты расчета</h2>
+                                <div class="result__items">
+                                    <div class="result__item">
+                                        <p>Ежемесячный платеж</p> 
+                                        <p style="font-family: Roboto;
+                                        font-size: 24px;
+                                        font-weight: 700;
+                                        line-height: 28.13px;
+                                        text-align: left;
+                                        " class="price__result"> <span id="monthlyPayment"></span></p>
+                                    </div>
+                                    <!-- <div class="result__item">
+                                        <p>Сумма кредита</p> 
+                                        <p class="price__result"></p>
+                                    </div>
+                                    <div class="result__item">
+                                        <p>Предоплата</p> 
+                                        <p class="price__result"></p>
+                                    </div> -->
+                                    <div class="result__item">
+                                        <p>Сумма кредита</p> 
+                                        <p class="price__result"><span id="loanAmountResult"></span></p>
+                                    </div>
+                                    <div class="result__item">
+                                        <p>Переплата</p> 
+                                        <p class="price__result"><span id="totalPayment"></span></p>
+                                    </div>
+                                    <div class="result__item">
+                                        <p>Общая сумма займа</p> 
+                                        <p class="price__result"><span id="totalInterest"></span></p>
+                                    </div>
+                                </div>
+                                <p class="text__result">Оставьте свои данные и банк пришлет вам условия</p>
+                                <button type="submit" class="result__button">Заполнить анкету</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>       
+    </section>
+    <footer class="footer">
+        <a href="" class="nav__footer-link">Калькуляторы</a>
+        <div class="container">
+            <nav class="menu">
+                <ul class="menu__items">
+                    <div class="logo">
+                        <a href=""><img class="img-first" src="assets/images/GIB.svg" alt=""></a>
+                        <a href=""><img class="img-second" src="assets/images/GlobalInvestBank.svg" alt=""></a>   
+                    </div>
+                    <div class="nav__items">
+                        <li class="menu__item">
+                            <a href="avto_calc.html" class="menu__item-link">Автокредит</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="ipot_calc.html" class="menu__item-link">Ипотека</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="credit_calc.html" class="menu__item-link">Кредит</a>
+                        </li>
+                    </div>
+                    <div class="social__item">
+                        <a class="social__first-item" href=""><img src="assets/images/tg.svg" alt=""></a>
+                        <a href=""><img src="assets/images/vk.svg" alt=""></a>                       
+                    </div>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
+

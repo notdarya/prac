@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Document</title>
+</head>
+<body>  
+    
+<header class="header">
+    <div class="container">
+        <nav class="menu">
+            <ul class="menu__items">
+                <div class="logo">
+                    <a href=""><img class="img-first" src="assets/images/GIB.svg" alt=""></a>
+                    <a href=""><img class="img-second" src="assets/images/GlobalInvestBank.svg" alt=""></a>   
+                </div>
+                <div class="nav__items">
+                    <li class="menu__item">
+                        <a href="avto_calc.html" class="menu__item-link">Автокредит</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="ipot_calc.html" class="menu__item-link">Ипотека</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="credit_calc.html" class="menu__item-link">Кредит</a>
+                    </li>
+                </div>
+                <div class="social__item">
+                    <a class="social__first-item" href=""><img src="assets/images/tg.svg" alt=""></a>
+                    <a href=""><img src="assets/images/vk.svg" alt=""></a>                       
+                </div>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="content">
+    <div class="container">
+        <a class="content__link" href="all_credits.html"><- Все кредиты</a>
+        <h1 class="title__content">Автокредитный калькулятор</h1>
+        <p class="text__content">Кредитный калькулятор позволяет онлайн рассчитать и сравнить размер ежемесячного платежа, сумму переплаты и процентной ставке по интересующему вас кредиту</p>
+        <div class="calculator">
+            <div class="calc__inner">
+                <div class="calc__input">
+                    <p class="text__calc">По стоимости автомобиля</p>
+                    <div class="calc__input-items">
+                        <form action="">
+                            <div class="input">
+                                <p>Стоимость автомобиля:</p>
+                                <input type="number" placeholder="Введите стоимость" id="carPrice">
+                            </div>
+                            <div class="input">
+                                <p>Первоначальный взнос:</p>
+                                <input type="number" placeholder="Введите первоначальный взнос" id="downPayment">
+                            </div>
+                            <div class="input">
+                                <p>Срок кредита в годах:</p>
+                                <input type="number" placeholder="Введите срок" id="loanTerm">
+                            </div>
+                            <div class="input">
+                                <p>Процентная ставка в год (%):</p>
+                                <input type="number" placeholder="Введите процентную ставку в год" id="interestRate">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="calc__result">
+                    <div class="calc__result-inner">
+                        <h2 class="title__result">Результаты расчета</h2>
+                        <div class="result__items">
+                            <div class="result__item">
+                                <p>Ежемесячный платеж</p> 
+                                <p style="font-family: Roboto;
+                                font-size: 24px;
+                                font-weight: 700;
+                                line-height: 28.13px;
+                                text-align: left;
+                                " class="price__result"> <span id="monthlyPayment"></span></p>
+                            </div>
+                            
+                            <div class="result__item">
+                                <p>Сумма кредита</p> 
+                                <p class="price__result"><span id="loanAmount"></span></p>
+                            </div>
+                            <div class="result__item">
+                                <p>Переплата</p> 
+                                <p class="price__result"><span id="totalInterest"></span></p>
+                            </div>
+                            <div class="result__item">
+                                <p>Общая сумма займа</p> 
+                                <p class="price__result"><span id="totalAmount"></span></p>
+                            </div>
+                        </div>
+                        <p class="text__result">Оставьте свои данные и банк пришлет вам условия</p>
+                        <button type="submit" class="result__button">Заполнить анкету</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>       
+</section>
+
+<footer class="footer">
+    <a href="" class="nav__footer-link">Калькуляторы</a>
+    <div class="container">
+        <nav class="menu">
+            <ul class="menu__items">
+                <div class="logo">
+                    <a href=""><img class="img-first" src="assets/images/GIB.svg" alt=""></a>
+                    <a href=""><img class="img-second" src="assets/images/GlobalInvestBank.svg" alt=""></a>   
+                </div>
+                <div class="nav__items">
+                    <li class="menu__item">
+                        <a href="avto_calc.html" class="menu__item-link">Автокредит</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="ipot_calc.html" class="menu__item-link">Ипотека</a>
+                    </li>
+                    <li class="menu__item">
+                        <a href="credit_calc.html" class="menu__item-link">Кредит</a>
+                    </li>
+                </div>
+                <div class="social__item">
+                    <a class="social__first-item" href=""><img src="assets/images/tg.svg" alt=""></a>
+                    <a href=""><img src="assets/images/vk.svg" alt=""></a>                       
+                </div>
+            </ul>
+        </nav>
+    </div>
+</footer>
+
+<script>
+    function calculateLoan() {
+        const carPrice = parseFloat(document.getElementById('carPrice').value);
+        const downPayment = parseFloat(document.getElementById('downPayment').value);
+        const loanTerm = parseInt(document.getElementById('loanTerm').value);
+        const interestRate = parseFloat(document.getElementById('interestRate').value) / 100;
+
+        let loanAmount = 0;
+        let monthlyPayment = 0;
+        let totalAmount = 0;
+        let totalInterest = 0;
+
+        if (!isNaN(carPrice) && !isNaN(downPayment) && !isNaN(loanTerm) && !isNaN(interestRate) &&
+            carPrice > 0 && downPayment > 0 && loanTerm > 0 && interestRate > 0) {
+            
+            loanAmount = carPrice - downPayment;
+            const monthlyInterest = interestRate / 12;
+            const totalPayments = loanTerm * 12; // Убедитесь, что loanTerm вводится в годах
+            monthlyPayment = (loanAmount * monthlyInterest) / (1 - Math.pow(1 + monthlyInterest, -totalPayments));
+            totalAmount = monthlyPayment * totalPayments;
+            totalInterest = totalAmount - loanAmount;
+        }
+
+        document.getElementById('loanAmount').innerText = `${loanAmount.toFixed(0)} ₽`;
+        document.getElementById('monthlyPayment').innerText = `${monthlyPayment.toFixed(0)} ₽`;
+        document.getElementById('totalAmount').innerText = `${totalAmount.toFixed(0)} ₽`;
+        document.getElementById('totalInterest').innerText = `${totalInterest.toFixed(0)} ₽`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        calculateLoan();
+        document.getElementById('carPrice').addEventListener('input', calculateLoan);
+        document.getElementById('downPayment').addEventListener('input', calculateLoan);
+        document.getElementById('loanTerm').addEventListener('input', calculateLoan);
+        document.getElementById('interestRate').addEventListener('input', calculateLoan);
+    });
+</script>
+
+
+</body>
+</html>
